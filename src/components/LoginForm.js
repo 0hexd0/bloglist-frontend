@@ -1,36 +1,18 @@
-import { useState } from 'react'
-import blogService from "../services/blogs";
-import loginService from '../services/login'
-
-const LoginForm = ({ setUser, showMessage }) => {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-
-    const handleLogin = async (event) => {
-        event.preventDefault()
-        try {
-            const user = await loginService.login({
-                username, password,
-            })
-            window.localStorage.setItem('loggedNoteappUser', JSON.stringify(user))
-            blogService.setToken(user.token)
-            setUser(user)
-            setUsername('')
-            setPassword('')
-        } catch (exception) {
-            console.log('exception', exception);
-            showMessage(exception.response.data.error, 'error')
-        }
-    }
-
-    return (<form onSubmit={handleLogin}>
+const LoginForm = ({
+    handleSubmit,
+    handleUsernameChange,
+    handlePasswordChange,
+    username,
+    password
+}) => {
+    return (<form onSubmit={handleSubmit}>
         <div>
             username
             <input
                 type="text"
                 value={username}
                 name="Username"
-                onChange={({ target }) => setUsername(target.value)}
+                onChange={handleUsernameChange}
             />
         </div>
         <div>
@@ -39,7 +21,7 @@ const LoginForm = ({ setUser, showMessage }) => {
                 type="password"
                 value={password}
                 name="Password"
-                onChange={({ target }) => setPassword(target.value)}
+                onChange={handlePasswordChange}
             />
         </div>
         <button type="submit">login</button>
