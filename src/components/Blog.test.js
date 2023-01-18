@@ -3,16 +3,13 @@ import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
 import Blog from './Blog'
 
-const user = {
-  name: 'Superuser',
-  token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpZCI6IjYzYzdiMTA2M2FlODk3OGZmYjM1MDZlZSIsImlhdCI6MTY3NDA0NDE4NCwiZXhwIjoxNjc0MjE2OTg0fQ.bqEcB1Ntt2jwHk86jMlVo-UsLdcFkhpE1tch3VzJoy0',
-  username: 'test'
-}
-
-const canRemove = (blog) => blog.user && blog.user.username === user.username
-
-
 test('renders content', () => {
+  const user = {
+    name: 'Superuser',
+    token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpZCI6IjYzYzdiMTA2M2FlODk3OGZmYjM1MDZlZSIsImlhdCI6MTY3NDA0NDE4NCwiZXhwIjoxNjc0MjE2OTg0fQ.bqEcB1Ntt2jwHk86jMlVo-UsLdcFkhpE1tch3VzJoy0',
+    username: 'test'
+  }
+
   const blog = {
     title: 'My Book',
     author: 'AAA',
@@ -28,6 +25,9 @@ test('renders content', () => {
     likes: 9,
     id: '63c7c2523ae8978ffb350764'
   }
+
+  const canRemove = (blog) => blog.user && blog.user.username === user.username
+
 
   render(<Blog blog={blog} canRemove={canRemove} />)
 

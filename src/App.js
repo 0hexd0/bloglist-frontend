@@ -99,6 +99,11 @@ const App = () => {
   if (user === null) {
     return (
       <div>
+        <Togglable buttonLabel="show...">
+          <div className="testDiv" >
+          togglable content
+          </div>
+        </Togglable>
         <h2>Log in to application</h2>
         <Notification message={message} type={messageType} />
         <Togglable buttonLabel="log in">
