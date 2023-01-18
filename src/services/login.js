@@ -7,7 +7,7 @@ const login = async credentials => {
 }
 
 const model = {
-    login
+  login
 }
 
 export default model

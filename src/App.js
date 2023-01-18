@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
-import LoginForm from "./components/LoginForm";
-import BlogList from "./components/BlogList";
-import BlogForm from './components/BlogForm';
-import Notification from './components/Notification';
-import Togglable from './components/Togglable';
+import LoginForm from './components/LoginForm'
+import BlogList from './components/BlogList'
+import BlogForm from './components/BlogForm'
+import Notification from './components/Notification'
+import Togglable from './components/Togglable'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -12,8 +12,8 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [message, setMessage] = useState(null);
-  const [messageType, setMessageType] = useState("success");
+  const [message, setMessage] = useState(null)
+  const [messageType, setMessageType] = useState('success')
 
   const sortFn = (a, b) => {
     return a.likes > b.likes ? -1 : 1
@@ -34,13 +34,13 @@ const App = () => {
     }
   }, [])
 
-  const showMessage = (text, type = "success") => {
-    setMessage(text);
-    setMessageType(type);
+  const showMessage = (text, type = 'success') => {
+    setMessage(text)
+    setMessageType(type)
     setTimeout(() => {
-      setMessage(null);
-    }, 5000);
-  };
+      setMessage(null)
+    }, 5000)
+  }
 
   const handleLogin = async (event) => {
     event.preventDefault()
