@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import LoginForm from './components/LoginForm'
-import BlogList from './components/BlogList'
+import Blog from './components/Blog'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
@@ -120,7 +120,11 @@ const App = () => {
       <Togglable buttonLabel='new blog' ref={blogFormRef}>
         <BlogForm createBlog={addBlog} />
       </Togglable>
-      <BlogList blogs={blogs} addLike={addLike} canRemove={canRemove} removeBlog={removeBlog} />
+      {
+        blogs.map(blog =>
+          <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog} canRemove={canRemove} />
+        )
+      }
     </div>
   )
 }

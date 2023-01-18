@@ -12,6 +12,7 @@ const Blog = ({ blog, addLike, removeBlog, canRemove }) => {
   const [visible, setVisible] = useState(false)
   const hideWhenVisible = { display: visible ? 'none' : '' }
   const showWhenVisible = { display: visible ? '' : 'none' }
+
   const showWhenUserIsCreator = (blog) => {
     return {
       display: canRemove(blog) ? '' : 'none'
@@ -47,14 +48,4 @@ const Blog = ({ blog, addLike, removeBlog, canRemove }) => {
   )
 }
 
-const BlogList = ({ blogs, addLike, removeBlog, canRemove }) => (
-  <>
-    {
-      blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog} canRemove={canRemove} />
-      )
-    }
-  </>
-)
-
-export default BlogList
+export default Blog
