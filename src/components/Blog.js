@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Blog = ({ blog, addLike, removeBlog, canRemove }) => {
+const Blog = ({ blog, addLike, removeBlog, user }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -12,12 +12,12 @@ const Blog = ({ blog, addLike, removeBlog, canRemove }) => {
   const [visible, setVisible] = useState(false)
   const hideWhenVisible = { display: visible ? 'none' : '' }
   const showWhenVisible = { display: visible ? '' : 'none' }
-
   const showWhenUserIsCreator = (blog) => {
     return {
-      display: canRemove(blog) ? '' : 'none'
+      display: blog.user.username === user.username ? '' : 'none'
     }
   }
+
   const toggleVisibility = () => {
     setVisible(!visible)
   }
@@ -31,16 +31,16 @@ const Blog = ({ blog, addLike, removeBlog, canRemove }) => {
   }
 
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} className="blog">
       <div className='title-row'>
         {blog.title}{' '}
-        <button style={hideWhenVisible} onClick={toggleVisibility}>view</button>
+        <button className='view-btn' style={hideWhenVisible} onClick={toggleVisibility}>view</button>
         <button style={showWhenVisible} onClick={toggleVisibility}>hide</button>
       </div>
 
       <div style={showWhenVisible} className="detail-rows">
         <div>{blog.url}</div>
-        <div>likes {blog.likes}<button onClick={() => handleLikeClick(blog)}>like</button></div>
+        <div>likes {blog.likes}<button className='like-btn' onClick={() => handleLikeClick(blog)}>like</button></div>
         <div>{blog.author}</div>
         <button style={showWhenUserIsCreator(blog)} onClick={() => handleRemoveClick(blog)}>remove</button>
       </div>

@@ -61,10 +61,10 @@ const App = () => {
   const blogFormRef = useRef()
 
   const addBlog = async (blogObject) => {
+    blogFormRef.current.toggleVisibility()
     try {
       const returnedNote = await blogService.create(blogObject)
       setBlogs(blogs.concat(returnedNote))
-      blogFormRef.current.toggleVisibility()
       showMessage(`a new blog ${blogObject.title}! by ${user.name} added`, 'success')
     } catch (exception) {
       showMessage(exception.response.data.error, 'error')
@@ -89,8 +89,6 @@ const App = () => {
     }
   }
 
-  const canRemove = (blog) => blog.user && blog.user.username === user.username
-
   const onLogout = () => {
     window.localStorage.clear()
     setUser(null)
@@ -99,14 +97,9 @@ const App = () => {
   if (user === null) {
     return (
       <div>
-        <Togglable buttonLabel="show...">
-          <div className="testDiv" >
-          togglable content
-          </div>
-        </Togglable>
         <h2>Log in to application</h2>
         <Notification message={message} type={messageType} />
-        <Togglable buttonLabel="log in">
+        <Togglable buttonLabel="login">
           <LoginForm username={username}
             password={password}
             handleUsernameChange={({ target }) => setUsername(target.value)}
@@ -125,11 +118,13 @@ const App = () => {
       <Togglable buttonLabel='new blog' ref={blogFormRef}>
         <BlogForm createBlog={addBlog} />
       </Togglable>
-      {
-        blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog} canRemove={canRemove} />
-        )
-      }
+      <div className='blog-rows'>
+        {
+          blogs.map(blog =>
+            <Blog key={blog.id} blog={blog} addLike={addLike} removeBlog={removeBlog} user={user} />
+          )
+        }
+      </div>
     </div>
   )
 }
